@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${tituloPagina}"></title>
+    <link rel="stylesheet" th:href="@{/styles/style2.css}">
+</head>
+<body>
+<main class="container">
+
+<header>
+    <h1>Senac Gestão</h1>
+
+    <nav>
+        <a href="#">Painel</a>
+        <a href="#">Inventário</a>
+        <a href="#">Pedidos</a>
+        <a href="#">Fornecedores</a>
+        <a href="#">Relatórios</a>
+    </nav>
+</header>
+
+<section class="banner">
+    <div class="banner-texto">
+        <h2>Excelência na Gestão de Cozinhas Industriais</h2>
+
+        <p>
+            Transformando a cozinha gastronômica através da tecnologia
+            e processos inteligentes.
+        </p>
+
+        <button>Acessar Estoque</button>
+    </div>
+</section>
+
+<section class="cards">
+
+    <div class="card">
+        <h3>Produtos Planejados</h3>
+        <p>1.240</p>
+    </div>
+
+    <div class="card">
+        <h3>Equipe Ativa</h3>
+        <p>24</p>
+    </div>
+
+    <div class="card">
+        <h3>Alertas de Estoque</h3>
+        <p>03</p>
+    </div>
+
+</section>
+
+<section class="estoque">
+
+    <h2>Gestão de Estoque</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total em Estoque</h3>
+            <p>R$ 42.850,00</p>
+        </div>
+
+        <div class="card">
+            <h3>Entradas Pendentes</h3>
+            <p>08</p>
+        </div>
+
+        <div class="card">
+            <h3>Itens Registrados</h3>
+            <p>124</p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+    <p>© 2026 Senac - Sistema de Gestão de Cozinha Industrial</p>
+
+    <script th:src="@{/scripts/script.js}"></script>
+</body>
+</html>
