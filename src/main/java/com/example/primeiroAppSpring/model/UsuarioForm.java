@@ -4,7 +4,7 @@ public class UsuarioForm {
     private String nome;
     private String email;
     private String senha;
-    private String confirmarsenha;
+    private String confirmarSenha;
 
     public String getNome() {
         return nome;
@@ -30,11 +30,11 @@ public class UsuarioForm {
         this.senha = senha;
     }
 
-    public String getConfirmarsenha() {
-        return confirmarsenha;
+    public String getConfirmarSenha() {
+        return confirmarSenha;
     }
 
-    public void setConfirmarsenha(String confirmarsenha) {
-        this.confirmarsenha = confirmarsenha;
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
     }
 }

@@ -1,6 +1,9 @@
 package com.example.primeiroAppSpring.controller;
 
+import com.example.primeiroAppSpring.model.Usuario;
 import com.example.primeiroAppSpring.model.UsuarioForm;
+import com.example.primeiroAppSpring.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,74 +14,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class UsuarioController {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
     @GetMapping("/cadastro")
-    public String exibirCadastro(Model model) {
+    public String exibirCadastro(Model model){
+        //Criando formulário vazio
         model.addAttribute("usuarioForm", new UsuarioForm());
 
         model.addAttribute("tituloPagina", "Cadastro");
         model.addAttribute("subTituloPagina", "Sistema de Gerenciamento de Estoque da Cozinha");
 
         return "cadastro";
-
     }
+    @PostMapping("/cadastro")
+    public String processarCadastro(@ModelAttribute UsuarioForm form, Model model){
+        String erro = usuarioService.cadastrar(form);
 
-    @PostMapping("cadastro")
-    public String processarCadastro(@ModelAttribute UsuarioForm form, Model model) {
-        if (!form.getSenha().equals(form.getConfirmarsenha())) {
-            model.addAttribute("erro", "Erro,as senhas não conferem");
+        if(erro!=null){
+            model.addAttribute("erro", erro);
+            model.addAttribute("usuarioForm", form);
             return "cadastro";
         }
-        IO.println("Usúario criado com secesso!");
-        IO.println(form.getNome() + "" + form.getEmail());
 
         return "redirect:/login";
     }
 
-
     @GetMapping("/login")
-    public String exibirLogin(Model model) {
+    public String exibirLogin(Model model){
+        //Criando formulário vazio
         model.addAttribute("usuarioForm", new UsuarioForm());
 
-        model.addAttribute("tituloPagina", "login");
+        model.addAttribute("tituloPagina", "Bem-Vindo");
         model.addAttribute("subTituloPagina", "Sistema de Gerenciamento de Estoque da Cozinha");
 
         return "login";
-
     }
-
-    @PostMapping("login")
-    public String processarLogin(@ModelAttribute UsuarioForm form, Model model) {
-        if (form.getEmail().endsWith("@df.senac.br")) {
-            return "redirect:/";
+    @PostMapping("/login")
+    public String processarLogin(@ModelAttribute UsuarioForm form, Model model){
+        Usuario usuario = usuarioService.autenticar(form.getEmail(), form.getSenha());
+        if(usuario == null){
+            model.addAttribute("erro","E-mail ou senha incorreto!");
+            return "login";
         }
-        model.addAttribute("erro", "E-mail ou senha invalida");
-
-        return "login";
+        return "redirect:/";
     }
 
-
-    @GetMapping("/alterarSenha")
-    public String exibirAlteraSenha(Model model) {
+    @GetMapping("/alterar-senha")
+    public String exibirAlterarSenha(Model model){
+        //Criando formulário vazio
         model.addAttribute("usuarioForm", new UsuarioForm());
 
-        model.addAttribute("tituloPagina", "alterar senha");
-        model.addAttribute("subTituloPagina", "Digita sua nova senha");
+        model.addAttribute("tituloPagina", "Alterar Senha");
+        model.addAttribute("subTituloPagina", "Informe seus dados para alterar a senha");
 
         return "alterarSenha";
-
     }
+    @PostMapping("/alterar-senha")
+    public String processarAlterarSenha(@ModelAttribute UsuarioForm form, Model model){
+        String erro = usuarioService.alterarSenha(form);
 
-    @PostMapping("alterarSenha")
-    public String processarAlterarSenha(@ModelAttribute UsuarioForm form, Model model) {
-        if (!form.getSenha().equals(form.getConfirmarsenha())) {
-            model.addAttribute("erro", "Erro, as senha não conferem!");
+        if(erro!=null){
+            model.addAttribute("erro", erro);
             return "alterarSenha";
         }
-        model.addAttribute("sucesso", "Senha alterada com sucesso");
 
         return "redirect:/login";
     }
-
-
 
 }

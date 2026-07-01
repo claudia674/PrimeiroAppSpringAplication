@@ -24,7 +24,7 @@
         <!-- Mensagem de sucesso -->
         <div class="sucesso" th:if="${sucesso}" th:text="${sucesso}"></div>
 
-        <form th:action="@{/alterarSenha}" th:object="${usuarioForm}" method="post">
+        <form th:action="@{/alterar-senha}" th:object="${usuarioForm}" method="post">
 
             <label for="email">E-mail</label>
             <input
@@ -44,11 +44,11 @@
                     required
             >
 
-            <label for="confirmarsenha">Confirmar Nova Senha</label>
+            <label for="confirmarSenha">Confirmar Nova Senha</label>
             <input
                     type="password"
                     id="confirmarSenha"
-                    th:field="*{confirmarsenha}"
+                    th:field="*{confirmarSenha}"
                     placeholder="Confirme a nova senha"
                     required
             >

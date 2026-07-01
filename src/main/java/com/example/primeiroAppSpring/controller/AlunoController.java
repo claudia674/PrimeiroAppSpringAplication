@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AlunoController {
-    @GetMapping("/api/aluno")
-    public Aluno buscarDadosDoAluno() {
-
-        return new Aluno("Claudia", "Desenvolvimento Web Backend");
+    @GetMapping("/aluno")
+    public Aluno buscarAluno(){
+        return new Aluno("Fulano de Tal","Desenvolvimento de Sistemas");
     }
-
-
 }
