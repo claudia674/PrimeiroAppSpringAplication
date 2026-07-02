@@ -61,7 +61,7 @@ public class UsuarioController {
             model.addAttribute("erro","E-mail ou senha incorreto!");
             return "login";
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/alterar-senha")
@@ -83,7 +83,9 @@ public class UsuarioController {
             return "alterarSenha";
         }
 
-        return "redirect:/login";
+        return "redirect:/home";
     }
+
+
 
 }
